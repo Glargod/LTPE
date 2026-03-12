@@ -1,4 +1,4 @@
-# LTPE – Line-of-Sight Teleport Priority-Guided Escape
+# LTPE – Line-of-Sight Priority-Guided Escape
 
 **Sparse, goal-biased exploration for confined 3D voids**  
 Designed to minimize steps to exit in irregular environments where mapping is secondary to survival.
@@ -11,8 +11,9 @@ LTPE uses:
 - Hub scanning + low-cost LOS relocation
 - Rapid dead-end pruning
 - Retroactive priority reinforcement
-- Probabilistic queue selection (weighted lottery + uncertainty decay + occasional random pull)
-- Layered handling for source-design transitions (e.g. natural cave → mine drift)
+- Probabilistic queue selection (weighted lottery + uncertainty decay + 5–10% random pull)
+- Layered handling for source-design transitions (e.g. cave → mine drift)
+- Separate anomalies layer for subtle "butler" exits (narrow cracks, airflow spikes, etc.)
 
 **Illustrative reasoning** on representative ant-nest topologies (\~60 segments, branch factor 2–5):  
 ≈120–150 steps to exit (with stochastic selection)  
