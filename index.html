@@ -6,105 +6,142 @@
   <title>LTPE – Line-of-Sight Teleport Priority-Guided Escape</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #0066cc;
       --primary-dark: #004080;
-      --text: #1a1a1a;
-      --light: #f8f9fa;
-      --gray: #6c757d;
-      --border: #dee2e6;
+      --accent: #00b894;
+      --text: #1e293b;
+      --light: #f8fafc;
+      --gray: #64748b;
+      --border: #e2e8f0;
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
     }
     body {
       font-family: 'Inter', system-ui, sans-serif;
-      line-height: 1.6;
+      line-height: 1.7;
       color: var(--text);
       background: var(--light);
       margin: 0;
       padding: 0;
     }
     header {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
       color: white;
-      padding: 4rem 2rem 3rem;
+      padding: 6rem 2rem 4rem;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.15) 0%, transparent 60%);
+      pointer-events: none;
     }
     header h1 {
       margin: 0;
-      font-size: 2.8rem;
+      font-size: 3.5rem;
       font-weight: 700;
+      letter-spacing: -1px;
     }
-    header p {
-      font-size: 1.25rem;
-      opacity: 0.9;
-      max-width: 700px;
-      margin: 1rem auto 0;
+    header p.tagline {
+      font-size: 1.4rem;
+      max-width: 720px;
+      margin: 1.2rem auto 0;
+      opacity: 0.95;
     }
     .container {
-      max-width: 900px;
-      margin: -3rem auto 4rem;
+      max-width: 980px;
+      margin: -3.5rem auto 5rem;
       padding: 0 1.5rem;
     }
     section {
       background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      margin-bottom: 2.5rem;
-      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      margin-bottom: 3rem;
+      padding: 3rem 2.5rem;
+      position: relative;
     }
     h2 {
       color: var(--primary-dark);
-      border-bottom: 2px solid var(--primary);
-      padding-bottom: 0.6rem;
-      margin-top: 0;
+      font-size: 2.1rem;
+      margin: 0 0 1.5rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 3px solid var(--accent);
     }
     h3 {
-      color: #333;
-      margin-top: 1.8rem;
+      color: #334155;
+      font-size: 1.5rem;
+      margin: 2rem 0 1rem;
     }
-    ul, ol {
-      padding-left: 1.8rem;
+    .highlight {
+      background: #eff6ff;
+      border-left: 5px solid var(--primary);
+      padding: 1.4rem;
+      border-radius: 8px;
+      margin: 1.8rem 0;
+      font-style: italic;
+    }
+    .variant-box {
+      background: #f0fdfa;
+      border: 1px solid #a5f3fc;
+      border-radius: 12px;
+      padding: 1.8rem;
+      margin: 1.5rem 0;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 1.5rem 0;
+      margin: 1.8rem 0;
+      font-size: 0.98rem;
     }
     th, td {
-      padding: 0.9rem 1rem;
+      padding: 1rem 1.2rem;
       border: 1px solid var(--border);
       text-align: left;
     }
     th {
-      background: var(--light);
+      background: #f1f5f9;
       font-weight: 600;
+      color: #334155;
     }
-    .highlight {
-      background: #e6f3ff;
-      padding: 1rem;
-      border-left: 4px solid var(--primary);
+    pre, code {
+      font-family: 'IBM Plex Mono', monospace;
+      background: #f8f9fa;
+      padding: 0.2rem 0.4rem;
       border-radius: 4px;
+    }
+    pre {
+      padding: 1.2rem;
+      overflow-x: auto;
+      border-radius: 8px;
+      background: #f1f5f9;
       margin: 1.5rem 0;
     }
-    .variant {
-      background: #f8f9ff;
-      border: 1px solid #d4e2ff;
+    .transition-diagram {
+      font-family: monospace;
+      background: #f8fafc;
       padding: 1.5rem;
       border-radius: 8px;
-      margin-top: 1.5rem;
+      margin: 1.5rem 0;
+      white-space: pre;
+      text-align: center;
     }
     footer {
       text-align: center;
-      padding: 2rem;
+      padding: 3rem 1rem 2rem;
       color: var(--gray);
       font-size: 0.95rem;
       border-top: 1px solid var(--border);
     }
     @media (max-width: 768px) {
-      header { padding: 3rem 1.5rem 2rem; }
-      header h1 { font-size: 2.2rem; }
-      section { padding: 1.8rem; }
+      header { padding: 4rem 1.5rem 3rem; }
+      header h1 { font-size: 2.6rem; }
+      section { padding: 2rem 1.5rem; }
     }
   </style>
 </head>
@@ -112,118 +149,124 @@
 
   <header>
     <h1>LTPE</h1>
-    <p>Line-of-Sight Teleport Priority-Guided Escape<br>
-    A sparse, goal-directed exploration algorithm for confined organic spaces</p>
+    <p class="tagline">Line-of-Sight Teleport Priority-Guided Escape<br>A sparse, goal-directed exploration algorithm for confined organic & hybrid spaces</p>
   </header>
 
   <div class="container">
 
     <section>
       <h2>Executive Summary</h2>
-      <p>In unknown, confined 3D environments — caves, mines, asteroid lava tubes, collapsed structures — the critical goal is often <strong>escape to safety</strong> (surface, fresh air, refuge) rather than exhaustive mapping or shortest-path optimality.</p>
-      <p><strong>LTPE</strong> is a lightweight, ant-inspired method that reaches goals with very low step count by:</p>
+      <p>In unknown 3D voids — caves, mines, lava tubes, asteroid structures — the overriding goal is usually <strong>escape to safety</strong> (surface, fresh air, refuge) rather than exhaustive mapping or shortest-path optimality.</p>
+      <p><strong>LTPE</strong> achieves this efficiently by:</p>
       <ul>
-        <li>Scanning from hubs to discover visible features</li>
-        <li>Teleporting (or fast-forwarding) to promising points at low cost</li>
-        <li>Pruning dead-ends after cheap confirmation</li>
-        <li>Retroactively boosting priority of paths that lead to rich branches</li>
+        <li>Scanning hubs to discover visible features</li>
+        <li>Low-cost jumps to promising points (LOS teleport abstraction)</li>
+        <li>Rapid dead-end pruning</li>
+        <li>Retroactive priority reinforcement on rich discoveries</li>
+        <li>Probabilistic selection to escape local optima</li>
+        <li>Layered handling of hybrid environments (natural ↔ engineered transitions)</li>
       </ul>
-      <p class="highlight">Simulation on average ant-nest structures: \~148 steps to exit vs. 400–800+ for backtracking/exhaustive methods.</p>
+      <p class="highlight">Simulation on modeled ant-nest structures: \~120–150 steps to exit (with stochastic selection) vs. 400–800+ for classic backtracking methods.</p>
     </section>
 
     <section>
       <h2>Problem & Motivation</h2>
-      <h3>Target Environments</h3>
+      <p>Target domains include cave SAR, mining accidents, asteroid/lunar voids, collapsed structures — environments with:</p>
       <ul>
-        <li>Cave search & rescue (SAR)</li>
-        <li>Underground mining accidents</li>
-        <li>Asteroid / lunar / Martian subsurface voids</li>
-        <li>Collapsed buildings or industrial confined spaces</li>
+        <li>Irregular, organic geometry</li>
+        <li>Limited visibility & sensing</li>
+        <li>High cost of backtracking or exhaustive coverage</li>
+        <li>Survival-critical objective: any safe path out > optimal path > full map</li>
       </ul>
-
-      <h3>Key Challenges</h3>
-      <ul>
-        <li>Irregular, organic geometry (curves, chambers, shafts)</li>
-        <li>Limited visibility (dust, darkness, short LOS)</li>
-        <li>Resource constraints (battery, air, compute, time)</li>
-        <li>Frequent dead-ends that punish backtracking</li>
-        <li>Goal: any safe path to exit &gt; shortest path &gt; full map</li>
-      </ul>
+      <p>Classic methods (BFS/A*, wall-following, full SLAM) struggle with voxel explosion, dead-end penalties, or compute overhead in such settings.</p>
     </section>
 
     <section>
       <h2>Biological Inspiration</h2>
-      <p>Fire ant and leafcutter ant nests (visualized via aluminum casts) show:</p>
-      <ul>
-        <li>Central queen chamber as high-connectivity hub</li>
-        <li>Radiating tunnels with curves, branches, many short dead-end stubs</li>
-        <li>Scouts prioritize promising cues (airflow, depth, traffic)</li>
-        <li>Dead-ends rejected quickly after brief check</li>
-        <li>Rich downstream discoveries reinforce incoming paths</li>
-      </ul>
-      <p>These structures are spongy, irregular, and chamber-heavy — ideal for sparse LOS exploration.</p>
+      <p>Fire ant colonies (visualized via aluminum casts) reveal hub-centric scanning, quick dead-end rejection, and reinforcement of promising paths — behaviors LTPE emulates.</p>
+      <p>Real nests are spongy, chamber-heavy, with curves and stubs — perfect for sparse LOS exploration.</p>
+      <!-- You can replace these with your own uploaded/public domain images -->
+      <p><em>Ant nest cast examples (Anthill Art style):</em></p>
+      <p>[Insert or link to images here – e.g., https://anthillart.com or public domain equivalents]</p>
     </section>
 
     <section>
       <h2>LTPE Algorithm</h2>
-      <h3>Data Structures</h3>
+
+      <h3>Core Structures</h3>
       <ul>
-        <li><strong>Nodes</strong>: scan points (chambers, curve stops, junctions) with (x,y,z)</li>
-        <li><strong>Exif entries</strong>: [az, el, dist, pri (0–15), status, origin_node_id]</li>
-        <li><strong>Queue</strong>: FIFO of exif entries + occasional pri-greedy override</li>
+        <li><strong>Nodes</strong>: scan points with (x,y,z)</li>
+        <li><strong>Exif entries</strong>: [az, el, dist, pri (0–15), status, origin_id]</li>
+        <li><strong>Queue</strong>: per-layer FIFO + probabilistic selection</li>
       </ul>
 
-      <h3>Actions & Costs (sight-only)</h3>
+      <h3>Actions & Costs</h3>
       <ul>
-        <li>Scan(current node): −1 step per visible direction</li>
-        <li>Teleport to exif entry: +1 step (LOS jump, curvature ignored)</li>
+        <li>Scan: −1 per visible direction discovered</li>
+        <li>Teleport/jump: +1 (abstract LOS); optional +distance modifier for realism</li>
         <li>Arrival → mandatory scan (even dead-end)</li>
       </ul>
 
       <h3>Dead-End Pruning</h3>
-      <p>Scan shows only reversal → scratch that exif entry</p>
+      <p>Only reversal visible → scratch entry (O(1) cost)</p>
 
-      <h3>Priority (0–15)</h3>
-      <ul>
-        <li>Initial: elevation (down +), width estimate, airflow proxy, etc.</li>
-        <li>Boost: k ≥ 4 new directions at arrival → +floor(k/2) to origin path pri (cap 15)</li>
-        <li>Selection: mostly FIFO; greedy pull if pri delta > threshold</li>
-      </ul>
+      <h3>Priority (Formalized)</h3>
+      <pre>
+pri = w₁·elevation + w₂·airflow_gradient + w₃·width_estimate + w₄·branch_potential + ...
+      </pre>
+      <p>Weights tunable; airflow gradient often dominant for exit detection.</p>
 
-      <h3>Optional Variant: Explore / Map Mode</h3>
-      <div class="variant">
-        <p><strong>Explore/Map Mode</strong> disables aggressive pruning and goal bias to produce a more complete map:</p>
+      <h3>Probabilistic Queue Selection (Anti-Local-Optima)</h3>
+      <p>Instead of greedy/FIFO only:</p>
+      <pre>
+P(node_i) = (pri_i + decay_bonus_i) / Σ(pri + decay_bonus)
+decay_bonus_i += k × waiting_time   // uncertainty decay
+      </pre>
+      <p>Strong bias to good paths + guaranteed probing of alternatives.</p>
+
+      <h3>Hybrid Environments & Source-Design Transitions</h3>
+      <div class="variant-box">
+        <p>When scan detects clear shift (scale, regularity, material, branching pattern):</p>
         <ul>
-          <li>Do <strong>not</strong> scratch dead-end entries → mark status = "dead-end"</li>
-          <li>Keep all nodes and connections</li>
-          <li>Lower pri threshold for exploration (force visit more branches)</li>
-          <li>Optionally disable pri-greedy overrides → pure FIFO or breadth-first</li>
-          <li>After queue exhaustion: export graph (nodes + edges) for 3D reconstruction</li>
-          <li>Use case: scientific mapping, post-incident analysis, infrastructure planning</li>
+          <li>Create <strong>Transition Node</strong> — shared between layers</li>
+          <li>Spawn independent Layer B queue (new fabric)</li>
+          <li>Transition node = <strong>exit candidate</strong> in Layer A, <strong>origin/hub</strong> in Layer B</li>
+          <li>Each layer has own: exif queue, pri weights, costs, mode (exifil/escape or explore/map)</li>
+          <li>Cross-layer LOS jumps allowed as bridges/shortcuts</li>
         </ul>
-        <p><em>Trade-off</em>: 2–4× more steps, but yields near-complete topology instead of escape path.</p>
+        <p class="transition-diagram">
+Layer A (natural cave)                  Transition Node                  Layer B (mine/engineered)
+      ────────────────►     [boundary hub]     ◄───────────────
+             exit candidate               new origin / hub
+        (prune if resolved)           (full scan → new exif)
+        </p>
+        <p>Examples: cave → mine drift, ant nest → mole burrow, lava tube → ancient quarry.</p>
+      </div>
+
+      <h3>Optional Modes per Layer</h3>
+      <div class="variant-box">
+        <strong>Exifil/Escape Mode</strong> — aggressive pruning, strong exit bias<br>
+        <strong>Explore/Map Mode</strong> — keep-all, systematic coverage, documentation
       </div>
     </section>
 
     <section>
-      <h2>Simulation Results</h2>
-      <p>Average modeled fire ant nest (\~60 segments, \~20 chambers, 90–120 cm depth):</p>
+      <h2>Simulation Results (Preliminary)</h2>
+      <p>Average modeled nest (\~60 segments, \~20 chambers):</p>
       <ul>
-        <li>Single-agent LTPE: <strong>\~148 net steps</strong> to surface exit</li>
-        <li>\~85 teleports (+1 each)</li>
-        <li>\~63 scans (net after directions discovered)</li>
-        <li>Peak queue \~21; \~24 nodes kept</li>
-        <li>Classic DFS backtracking: 400–800+ steps</li>
-        <li>BFS/flood: 300–600+ steps</li>
+        <li>LTPE + stochastic selection: \~120–150 steps to exit</li>
+        <li>Classic DFS: 400–800+</li>
+        <li>BFS/flood: 300–600+</li>
       </ul>
+      <p>Needs: 1000+ trials, varied branching/LOS, noise models.</p>
     </section>
 
     <section>
       <h2>Applications</h2>
       <ul>
-        <li><strong>Cave SAR</strong>: handheld LiDAR device, voice/AR cues</li>
-        <li><strong>Mining</strong>: helmet integration with gas sensors for pri boost</li>
-        <li><strong>Space / asteroid</strong>: rover/astronaut in lava tubes, depth-to-surface proxy</li>
+        <li>Cave SAR: handheld LiDAR/AR device</li>
+        <li>Mining: helmet with gas sensors for pri</li>
+        <li>Space: rover in lava tubes, depth-to-surface proxy</li>
       </ul>
     </section>
 
@@ -233,18 +276,19 @@
         <tr><th>Advantages</th><th>Limitations</th></tr>
         <tr>
           <td>
-            <ul style="margin:0;">
-              <li>Very low visited fraction (\~20–50%)</li>
-              <li>Cheap dead-end rejection</li>
-              <li>Adaptive bias without heavy computation</li>
-              <li>Deterministic & explainable</li>
+            <ul>
+              <li>Low visited fraction (\~20–50%)</li>
+              <li>Rapid dead-end rejection</li>
+              <li>Handles hybrid voids via layers</li>
+              <li>Probabilistic escape from traps</li>
+              <li>Explainable & low compute</li>
             </ul>
           </td>
           <td>
-            <ul style="margin:0;">
+            <ul>
               <li>No shortest-path guarantee</li>
-              <li>Pri bias risk of local optima</li>
-              <li>Requires decent LOS sensing</li>
+              <li>Pri tuning required</li>
+              <li>Assumes usable LOS sensing</li>
             </ul>
           </td>
         </tr>
@@ -254,18 +298,18 @@
     <section>
       <h2>Next Steps</h2>
       <ol>
-        <li>Synthetic nest graph generator</li>
-        <li>Baseline comparisons (LTPE vs BFS vs wall-follower)</li>
-        <li>RL integration (curiosity + hierarchical backtrack)</li>
-        <li>Hardware mock-up (smartphone + LiDAR)</li>
-        <li>Open-source repo with sim code & models</li>
+        <li>Synthetic hybrid nest generator</li>
+        <li>Rigorous comparisons (N=1000+ trials)</li>
+        <li>RL proxy (curiosity + hierarchical skills)</li>
+        <li>Hardware prototype (smartphone + LiDAR)</li>
+        <li>Open repo with code, models, sims</li>
       </ol>
     </section>
 
   </div>
 
   <footer>
-    <p>© 2026 Robert (@BobTheFixer73) • Inspired by ant scouts and the need for fast escape in unforgiving voids • CC-BY-4.0</p>
+    <p>© 2026 Robert (@BobTheFixer73) • Bio-inspired escape for unforgiving voids • CC-BY-4.0</p>
   </footer>
 
 </body>
