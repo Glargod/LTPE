@@ -70,24 +70,12 @@
       padding-bottom: 0.8rem;
       border-bottom: 3px solid var(--accent);
     }
-    h3 {
-      color: #334155;
-      font-size: 1.5rem;
-      margin: 2rem 0 1rem;
-    }
     .highlight {
       background: #eff6ff;
       border-left: 5px solid var(--primary);
       padding: 1.4rem;
       border-radius: 8px;
       margin: 1.8rem 0;
-    }
-    .variant-box {
-      background: #f0fdfa;
-      border: 1px solid #a5f3fc;
-      border-radius: 12px;
-      padding: 1.8rem;
-      margin: 1.5rem 0;
     }
     pre {
       font-family: 'IBM Plex Mono', monospace;
@@ -96,19 +84,6 @@
       border-radius: 8px;
       overflow-x: auto;
       margin: 1.5rem 0;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 1.8rem 0;
-    }
-    th, td {
-      padding: 1rem 1.2rem;
-      border: 1px solid var(--border);
-    }
-    th {
-      background: #f1f5f9;
-      font-weight: 600;
     }
     footer {
       text-align: center;
@@ -140,7 +115,7 @@
         <li>Hub scanning + low-cost LOS relocation</li>
         <li>Rapid dead-end pruning (O(1) cost)</li>
         <li>Retroactive priority reinforcement on rich discoveries</li>
-        <li>Probabilistic queue selection (weighted lottery + uncertainty decay + occasional random pull)</li>
+        <li>Probabilistic queue selection (weighted lottery + uncertainty decay + 5–10% random pull)</li>
         <li>Independent layers for source-design transitions (e.g. cave → mine drift)</li>
       </ul>
       <p class="highlight">Illustrative reasoning on representative ant-nest topologies: ≈120–150 steps to exit vs. 400–800+ for classic DFS backtracking.</p>
@@ -156,8 +131,6 @@
       <p>These are illustrative — based on expected wasted traversal under different pruning/reinforcement behaviors — rather than full Monte-Carlo simulation results. Future work includes 1000+ randomized trials with varied LOS range and noise.</p>
       <p>The algorithm favors nodes with high directional entropy (many unexplored exits), which statistically increases the probability of reaching an exit earlier in irregular tunnel graphs.</p>
     </section>
-
-    <!-- rest of sections remain similar to previous version, with minor wording tweaks for clarity -->
 
     <section>
       <h2>LTPE Algorithm</h2>
@@ -181,7 +154,7 @@
 
       <h3>Priority (Formalized)</h3>
       <pre>
-pri = w₁·elevation + w₂·airflow_gradient + w₃·width_estimate + w₄·branch_potential + ...
+pri = w₁·elevation + w₂·airflow_gradient + w₃·width_estimate + w₄·branch_potential + …
       </pre>
 
       <h3>Probabilistic Queue Selection</h3>
@@ -196,11 +169,28 @@ with probability ε (0.05–0.10) per decision:
       </pre>
       <p>This small randomness prevents lock-in on suboptimal paths (e.g. long spirals) and is common in real autonomous cave robots and MCTS variants.</p>
 
-      <!-- hybrid transition section remains as before -->
+      <h3>Hybrid Environments & Source-Design Transitions</h3>
+      <div class="variant-box">
+        <p>When scan detects clear shift (scale, regularity, material, branching pattern):</p>
+        <ul>
+          <li>Create <strong>Transition Node</strong> — shared between layers</li>
+          <li>Spawn independent Layer B queue (new fabric)</li>
+          <li>Transition node = <strong>exit candidate</strong> in Layer A, <strong>new origin/hub</strong> in Layer B</li>
+          <li>Each layer has own: exif queue, pri weights, costs, mode (escape or map)</li>
+          <li>Cross-layer LOS jumps allowed as bridges/shortcuts</li>
+        </ul>
+      </div>
 
+      <h3>Anomaly Detection & The Butler's Escape Layer</h3>
+      <div class="variant-box">
+        <p>A separate, capped anomalies queue (max 5–10 entries) captures subtle oddities (narrow cracks, airflow spikes, texture shifts, single small openings).</p>
+        <p>With probability 8–15% per decision, LTPE probes the highest-anomaly entry instead of the main queue.</p>
+        <p>One-shot check: if it pays off → retroactive boost to parent path.</p>
+        <p>Keeps main escape logic fast and RAM-efficient while catching hidden two-step exits.</p>
+      </div>
     </section>
 
-    <!-- other sections: Applications, Advantages & Limitations, Next Steps – keep as-is or slightly trimmed -->
+    <!-- Applications, Advantages & Limitations, Next Steps sections remain as before -->
 
   </div>
 
