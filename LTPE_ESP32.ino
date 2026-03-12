@@ -1,29 +1,25 @@
 /*
- * LTPE – ESP32 Prototype with IMU Elevation Bias + Tilt Servo
+ * LTPE – ESP32 Prototype with IMU Elevation & 3D Coordinates
  * Robert @BobTheFixer73 – March 2026
  *
- * Hardware additions:
- * - MPU-6050 IMU (pitch for elevation bias)
- * - Second servo on pin 12 for LiDAR tilt (elevation pointing)
- *
- * Behavior changes:
- * - Reads pitch from IMU → biases pri (upward = good, downward = bad)
- * - When high-pri or anomalous direction chosen → tilts LiDAR to that elevation
- * - Keeps yaw sweep for horizontal scan
+ * Now includes:
+ * - MPU-6050 IMU for pitch (elevation) bias & 3D coord calculation
+ * - Relative (x,y,z) positions for each visible point
+ * - Tilt servo only for final pointing (not scanning)
  */
 
 #include <Wire.h>
-#include <VL53L1X.h>              // Pololu VL53L1X
+#include <VL53L1X.h>
 #include <Servo.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-#include <MPU6050_tockn.h>        // MPU6050 library (install via Library Manager)
+#include <MPU6050_tockn.h>
 
 // ────────────────────────────────────────────────
 //  PINS
 // ────────────────────────────────────────────────
-#define YAW_SERVO_PIN    13       // horizontal pan
-#define TILT_SERVO_PIN   12       // vertical tilt
+#define YAW_SERVO_PIN    13
+#define TILT_SERVO_PIN   12
 #define BUTTON_PIN       33
 #define BUZZER_PIN       25
 #define LED_GOOD         26
@@ -47,15 +43,20 @@ Servo yawServo;
 Servo tiltServo;
 
 // ────────────────────────────────────────────────
-//  LTPE State
+//  LTPE State with 3D coords
 // ────────────────────────────────────────────────
 struct Exif {
-  int     yaw_angle;    // 0–180° horizontal
-  int     tilt_angle;   // –45° to +45° vertical (servo mapped)
+  int     yaw_deg;      // horizontal 0–180
+  float   pitch_deg;    // vertical from IMU
   uint16_t dist_mm;
   uint8_t pri;
   uint8_t anomaly;
   bool    tried;
+
+  // 3D relative position (cm)
+  float   x;            // forward
+  float   y;            // right/left
+  float   z;            // up/down
 };
 
 Exif visible[12];
@@ -69,7 +70,7 @@ int last_yaw_angle = -1;
 void setup() {
   Serial.begin(115200);
   delay(200);
-  Serial.println("\nLTPE ESP32 with IMU & Tilt Servo");
+  Serial.println("\nLTPE ESP32 with IMU Elevation & 3D Coords");
 
   pinMode(BUTTON_PIN, INPUT_PULLUP);
   pinMode(BUZZER_PIN, OUTPUT);
@@ -89,7 +90,7 @@ void setup() {
   display.println("LTPE Starting...");
   display.display();
 
-  // I2C sensors
+  // I2C
   Wire.begin();
 
   // IMU
@@ -109,7 +110,7 @@ void setup() {
   yawServo.attach(YAW_SERVO_PIN);
   tiltServo.attach(TILT_SERVO_PIN);
   yawServo.write(90);
-  tiltServo.write(90);  // neutral / level
+  tiltServo.write(90);
 
   randomSeed(esp_random());
 
@@ -132,7 +133,7 @@ void loop() {
 }
 
 // ────────────────────────────────────────────────
-//  SCAN + DECIDE
+//  SCAN + DECIDE + 3D COORDS
 // ────────────────────────────────────────────────
 void scanAndDecide() {
   display.clearDisplay();
@@ -142,20 +143,18 @@ void scanAndDecide() {
 
   vis_count = 0;
 
-  // Horizontal yaw sweep (0–180°)
   for (int yaw = 0; yaw <= 180; yaw += 15) {
     yawServo.write(yaw);
     delay(120);
 
-    // Read IMU pitch for elevation bias
+    // Read current pitch from IMU
     mpu6050.update();
     float pitch_deg = mpu6050.getAngleY();  // pitch in degrees
 
-    // Tilt servo to current "interest" level (simple heuristic)
-    int tilt_target = map(pitch_deg, -90, 90, 0, 180);  // rough mapping
+    // Tilt servo to match current interest or neutral
+    int tilt_target = constrain(map(pitch_deg, -60, 60, 0, 180), 0, 180);
     tiltServo.write(tilt_target);
-
-    delay(80);  // settle
+    delay(80);
 
     lidar.startRanging();
     while (!lidar.dataReady()) delay(1);
@@ -166,14 +165,27 @@ void scanAndDecide() {
       uint8_t pri = calcPri(dist_mm, yaw, pitch_deg);
       uint8_t ano = calcAnomaly(dist_mm, yaw);
 
+      // Compute 3D relative position (simple spherical to cartesian)
+      float dist_m = dist_mm / 1000.0;
+      float yaw_rad = radians(yaw - 90);      // center = 0° forward
+      float pitch_rad = radians(pitch_deg);
+
+      float x = dist_m * cos(pitch_rad) * cos(yaw_rad);   // forward
+      float y = dist_m * cos(pitch_rad) * sin(yaw_rad);   // left/right
+      float z = dist_m * sin(pitch_rad);                  // up/down
+
       if (vis_count < 12) {
-        visible[vis_count++] = {yaw, tilt_target, dist_mm, pri, ano, false};
+        visible[vis_count] = {yaw, tilt_target, dist_mm, pri, ano, false};
+        visible[vis_count].x = x * 100;  // cm
+        visible[vis_count].y = y * 100;
+        visible[vis_count].z = z * 100;
+        vis_count++;
       }
     }
   }
 
   yawServo.write(90);
-  tiltServo.write(90);  // reset to level
+  tiltServo.write(90);
 
   if (vis_count == 0) {
     display.clearDisplay();
@@ -200,11 +212,17 @@ void scanAndDecide() {
   display.print("cm @ yaw ");
   display.print(target.yaw_angle);
   display.print("° tilt ");
-  display.print(target.tilt_angle - 90);  // relative to level
+  display.print(target.tilt_angle - 90);
   display.println("°");
 
+  display.setCursor(0,40);
+  display.print("Pos: ");
+  display.print((int)target.x); display.print(",");
+  display.print((int)target.y); display.print(",");
+  display.print((int)target.z); display.println(" cm");
+
   if (target.anomaly >= 3) {
-    display.println("Anomaly – check!");
+    display.println("Anomaly!");
     digitalWrite(LED_ANOMALY, HIGH);
     tone(BUZZER_PIN, 1800, 400);
   } else if (target.pri >= 10) {
@@ -213,41 +231,41 @@ void scanAndDecide() {
   }
 
   display.display();
-  delay(4000);
+  delay(5000);
 
   digitalWrite(LED_GOOD, LOW);
   digitalWrite(LED_ANOMALY, LOW);
 
-  last_angle = target.yaw_angle;
+  last_yaw_angle = target.yaw_angle;
   target.tried = true;
 
-  // Physically point gimbal toward target
+  // Point toward target
   yawServo.write(target.yaw_angle);
   tiltServo.write(target.tilt_angle);
-  delay(1500);  // hold position briefly
+  delay(2000);
 }
 
 // ────────────────────────────────────────────────
-//  PRIORITY with ELEVATION BIAS
+//  PRIORITY with ELEVATION
 // ────────────────────────────────────────────────
 uint8_t calcPri(uint16_t dist_mm, int yaw, float pitch_deg) {
   uint8_t p = 8;
   if (dist_mm < 1000) p += 5;
   if (dist_mm > 3000) p -= 4;
 
-  // Elevation bonus/penalty
+  // Elevation bias
   if (pitch_deg > 10)  p += 5;   // upward = strong exit cue
   if (pitch_deg < -20) p -= 6;   // steep down = danger
 
-  if (yaw >= 60 && yaw <= 120) p += 2;  // forward bias
+  if (yaw >= 60 && yaw <= 120) p += 2;
 
-  if (yaw == last_angle) p = max(0, p - 4);  // avoid immediate revisit
+  if (yaw == last_yaw_angle) p = max(0, p - 4);
 
   return constrain(p, 0, 15);
 }
 
 // ────────────────────────────────────────────────
-//  ANOMALY (unchanged)
+//  ANOMALY
 // ────────────────────────────────────────────────
 uint8_t calcAnomaly(uint16_t dist_mm, int yaw) {
   uint8_t a = 0;
@@ -257,7 +275,7 @@ uint8_t calcAnomaly(uint16_t dist_mm, int yaw) {
 }
 
 // ────────────────────────────────────────────────
-//  Probabilistic Pick (unchanged)
+//  Probabilistic Pick
 // ────────────────────────────────────────────────
 int pickNext() {
   if (random(100) < 10 && vis_count > 0) {
