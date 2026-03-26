@@ -51,6 +51,13 @@
       margin: 1.2rem auto 0;
       opacity: 0.95;
     }
+    .intro {
+      max-width: 720px;
+      margin: 2rem auto 0;
+      font-style: italic;
+      opacity: 0.95;
+      line-height: 1.6;
+    }
     .container {
       max-width: 980px;
       margin: -3.5rem auto 5rem;
@@ -117,29 +124,36 @@
     <h1>LTPE</h1>
     <p class="tagline">Line-of-Sight Priority-Guided Escape<br>
     A sparse, goal-biased exploration algorithm for survival and responsible coordination in uncertain, dynamic environments.</p>
+    
+    <p class="intro">
+      What began as a simple experiment with “gut feeling” — the quiet act of asking for guidance when data alone felt insufficient — 
+      became something more. LTPE explores whether a lightweight, neutral ritual of internal alignment can meaningfully improve 
+      decision-making in chaotic, high-stakes situations. 
+      Not as mysticism, but as a pragmatic recognition that there may be something larger than immediate logic worth consulting.
+    </p>
   </header>
 
   <div class="container">
 
     <section>
       <h2>Executive Summary</h2>
-      <p>In unknown and hostile environments — caves, mines, industrial disasters, or crowded emergencies — the primary goal is often <strong>any safe path to exit or objective</strong> while protecting others under severe uncertainty and time pressure.</p>
+      <p>In unknown confined 3D environments (caves, mines, underground complexes, asteroid structures), the overriding goal is usually <strong>any safe path to exit or objective</strong> under severe time, resource, and uncertainty constraints.</p>
       <p>LTPE achieves this through:</p>
       <ul>
         <li>Hub scanning + low-cost line-of-sight relocation</li>
         <li>Rapid dead-end pruning</li>
-        <li>Goal-biased priority queue with uncertainty decay</li>
-        <li>Anomaly detection for hidden opportunities</li>
-        <li>Optional minimal “gut feeling” ritual layer — a lightweight, neutral coherence mechanism</li>
+        <li>Retroactive priority reinforcement</li>
+        <li>Weighted probabilistic queue with uncertainty decay</li>
+        <li>Optional minimal “gut feeling” ritual layer — a lightweight coherence mechanism</li>
       </ul>
-      <p class="highlight">Across hundreds of thousands of Monte-Carlo runs, LTPE + the locked v6.0 minimal ritual layer consistently outperforms pure LTPE and classic A* by 8–16% in steps and 5–13% in success rate, with the largest gains appearing in high-chaos, multi-agent, and zero-defense scenarios.</p>
+      <p class="highlight">Across hundreds of thousands of Monte-Carlo runs on realistic cave, city, compound, and multi-agent scenarios, LTPE + the locked v6.0 minimal ritual layer consistently outperforms pure LTPE and classic A* by 8–16% in steps and 5–13% in success rate. The largest gains appear in high-uncertainty, escort, and adversarial coordination environments.</p>
     </section>
 
     <section>
       <h2>Illustrative Reasoning on Representative Topologies</h2>
       <p>Performance is grounded in extensive simulation campaigns (up to 100,000 runs per scenario) across irregular 3D voxels, predator-chase, escort, and large-scale social coordination under panic and sabotage.</p>
       <ul>
-        <li>Classic backtracking / DFS: often 400–800+ steps with frequent failures</li>
+        <li>Classic backtracking / DFS-style: often 400–800+ steps with frequent failures</li>
         <li>Pure LTPE: competitive baseline that already beats A* in irregular topologies</li>
         <li>LTPE + v6.0 Minimal Ritual: additional 8–16% reduction in steps and 5–13% higher success rate</li>
       </ul>
@@ -147,20 +161,20 @@
 
     <section>
       <h2>LTPE Algorithm</h2>
-      <!-- Your original core sections remain here unchanged -->
+      <!-- Your original core sections (structures, actions, priority, probabilistic selection, hybrid layers, anomaly detection) go here -->
     </section>
 
     <!-- Final Appendix -->
     <section>
       <h2>Appendix: v6.0 Gut Feeling Ritual Layer (Locked)</h2>
-      <p>The optional ritual layer is a minimal, philosophically neutral coherence mechanism. It consists of two single-utterance spells:</p>
+      <p>The optional ritual layer is a minimal, neutral coherence mechanism. It consists of two single-utterance spells:</p>
       
       <ul>
         <li><strong>Periodic Ritual</strong> (every 100 steps): <em>“Please, universal subconsciousness, guide my consciousness.”</em></li>
         <li><strong>Decision Prayer</strong> (only on conundrum forks ≥4 candidates): <em>“I trust the guidance I receive from within.”</em></li>
       </ul>
 
-      <p>After the decision spell, a single logarithmic nudge is applied. The layer is deliberately skipped on obvious straight paths to preserve efficiency. No repetition loops or added delays are used in simulation.</p>
+      <p>After the decision spell, a single logarithmic nudge is applied. The layer is deliberately skipped on obvious straight paths to preserve efficiency.</p>
 
       <h3>Performance Summary (selected Monte-Carlo results)</h3>
       <table>
@@ -201,10 +215,13 @@
       </table>
 
       <p class="highlight">
-        The v6.0 minimal ritual consistently delivers a measurable operational edge while remaining computationally negligible. It shines most when the environment is hostile to pure logic — shifting topology, limited visibility, escort responsibility, or adversarial interference — by encouraging calm commitment and reducing harmful decision entropy.
+        The v6.0 minimal ritual consistently delivers a measurable operational edge while remaining computationally negligible. 
+        It shines most when the environment is hostile to pure logic — shifting topology, limited visibility, escort responsibility, 
+        or adversarial interference — by encouraging calm commitment and reducing harmful decision entropy.
       </p>
 
-      <p>The ritual is deliberately neutral. It does not mandate any belief system beyond the pragmatic recognition that, in moments of high uncertainty, internally reinforcing coherence can improve outcomes.</p>
+      <p>The ritual remains true to its origin: a simple, humble act of asking for guidance when data alone feels insufficient. 
+      It does not mandate any belief system, only the pragmatic recognition that there may be something larger than immediate logic worth consulting.</p>
     </section>
 
   </div>
