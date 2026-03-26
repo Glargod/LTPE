@@ -1,64 +1,67 @@
 # LTPE — Line-of-Sight Priority-Guided Escape
 
-A sparse, goal-biased exploration algorithm designed for **survival** in irregular, unmapped 3D environments where reaching safety (or a target) efficiently matters more than building a complete map.
+A sparse, goal-biased exploration algorithm designed for **survival** in irregular, unmapped 3D (and high-stress 2D) environments where reaching safety — or escorting others — efficiently matters more than building a complete map.
 
-LTPE excels in caves, mines, underground complexes, and other confined voids where time, visibility, and resources are extremely limited.
+LTPE was created for real-world scenarios like cave rescue, underwater escape, special operations navigation, and high-pressure search missions under uncertainty and threat.
 
 ## Core Philosophy
 
-In unknown 3D spaces, **any safe path to the objective** is often superior to the mathematically optimal path. LTPE prioritizes speed, robustness, low memory usage, and survival intuition over exhaustive mapping.
+In unknown spaces, **any safe path to the objective** is often better than the mathematically shortest path. LTPE prioritizes speed, robustness, low computational cost, and responsible decision-making over exhaustive mapping.
 
 ## Key Features
 
 - Line-of-Sight (LOS) relocation for fast hub-to-hub movement
-- Rapid dead-end pruning (near-zero cost)
+- Rapid dead-end pruning with near-zero cost
 - Goal-biased priority queue (elevation, airflow, branch potential, etc.)
 - Probabilistic selection with uncertainty decay
 - Anomaly detection layer for hidden opportunities
 - Hybrid layer support for natural → man-made transitions
-- **Optional "Gut Feeling" ritual layer** – a lightweight stochastic nudge
+- **Minimal "Gut Feeling" Ritual Layer** — a neutral, lightweight intention-setting mechanism
 
-## The Gut Feeling Layer ("God is mysterious")
+## The Gut Feeling Ritual Layer (Locked v6.0)
 
-LTPE includes an optional ritual-based decision layer:
+The optional ritual layer is deliberately minimal and philosophically neutral:
 
-- **Periodic re-awakening**: `10× "Universe, please help"` every 100 steps (pure ritual, zero computational cost)
-- **Conundrum-only prayer**: Triggers only on complex forks (≥4 options)
-- **Logarithmic nudge**: "God is mysterious" variant — mostly gentle guidance with occasional stronger, non-linear kicks when uncertainty peaks
-- Skipped entirely on obvious straight paths for maximum efficiency
+- **Periodic Ritual** (every 100 steps):  
+  `"Please, universal subconsciousness, guide my consciousness."`
 
-This layer has demonstrated consistent gains in extensive Monte-Carlo testing:
-- 8–12% reduction in steps and distance
-- 5–11% higher success rate
-- Most effective during high-uncertainty moments (conflicting tips, guard movements, ambiguous chambers)
+- **Decision Prayer** (only on conundrum forks ≥4 candidates):  
+  `"I trust the guidance I receive from within."`
+
+After the decision spell, a single **logarithmic nudge** ("God is mysterious" style) is applied. The layer is skipped entirely on obvious straight paths to preserve efficiency.
+
+This minimal version has shown consistent improvements across thousands of Monte-Carlo runs:
+- 8–15% reduction in steps/distance in most scenarios
+- 5–13% higher success rate
+- Particularly effective in high-uncertainty, escort, and predator-pressure situations
 
 ## Performance Highlights
 
-Across thousands of simulated runs (cavern raids, city-wide SAR, statewide manhunts, and Delta-style operations):
+Across extensive testing (caves, compounds, city-wide Amber Alerts, statewide manhunts, and "Frenzy & Fog" cognitive load tests):
 
-- **LTPE + Log Prayer** consistently outperforms pure LTPE, classic A*, and traditional DFS/backtracking
-- Best observed runs reach objectives in as little as **29–41 steps** in favorable alignments
+- **LTPE + Minimal Spells** consistently outperforms pure LTPE and classic A*
+- Strongest gains appear in complex escort/responsibility scenarios and under high cognitive load
 
 ## Use Cases
 
 - Autonomous cave and mine rescue robots
-- Special operations navigation (cavern complex raids)
+- Special operations navigation (cavern and underwater raids)
 - Urban search & rescue (Amber Alert / disaster response)
-- Astronautical exploration (asteroid tunnels, lava tubes)
-- Resource-constrained 3D exploration under uncertainty
+- Deep-sea or subterranean exploration
+- Any resource-constrained exploration under uncertainty and threat
 
 ## Project Status
 
 **Active Research & Development** (2026)
 
-The repository contains conceptual specification, pseudocode, simulation framework, and performance data from extensive DARPA-style testing.
+The repository contains conceptual specification, pseudocode, simulation framework, and performance data from extensive testing.
 
 ## Repository Contents
 
 - `ltpe_core/` — Core algorithm structures and pseudocode
 - `simulations/` — Monte-Carlo test harness
 - `docs/` — Technical notes and appendices
-- `LTPE_ESP32.ino` — ESP32 implementation with gut feeling layer
+- `LTPE_ESP32.ino` — ESP32 implementation
 - `HOWTO.md` — Implementation guide
 
 ## License
@@ -69,10 +72,11 @@ Feel free to use, modify, and build upon this work with attribution.
 
 ## Acknowledgments
 
-Inspired by survival intuition, bio-inspired exploration, and the humble practice of quietly asking the universe for guidance when the path is darkest.
+Inspired by survival intuition, bio-inspired exploration, and the humble practice of quietly consulting something larger than immediate data when the path is most uncertain.
 
 ---
 
 *"The giant is awake. The universe is mysterious… and it’s helping."*
+
 
 Built with curiosity and respect for the unknown.
