@@ -1,26 +1,27 @@
 # LTPE — Line-of-Sight Priority-Guided Escape
 
-A sparse, goal-biased exploration algorithm designed for **survival** in irregular, unmapped 3D (and high-stress 2D) environments where reaching safety — or escorting others — efficiently matters more than building a complete map.
+A sparse, goal-biased exploration algorithm designed for **survival and responsible coordination** in irregular, unmapped, and hostile environments — where reaching safety, or protecting others, matters more than building a perfect map.
 
-LTPE was created for real-world scenarios like cave rescue, underwater escape, special operations navigation, and high-pressure search missions under uncertainty and threat.
+What began as a simple question — *what if an algorithm could quietly consult something larger than its immediate data?* — evolved into LTPE.
 
 ## Core Philosophy
 
-In unknown spaces, **any safe path to the objective** is often better than the mathematically shortest path. LTPE prioritizes speed, robustness, low computational cost, and responsible decision-making over exhaustive mapping.
+In unknown and chaotic spaces, **any safe path to the objective** is often better than the mathematically optimal one. LTPE prioritizes speed, robustness, low computational cost, and coherent decision-making under pressure.
+
+At its heart lies a simple idea: when logic alone is insufficient, a lightweight ritual of internal alignment can help the system choose more wisely.
 
 ## Key Features
 
 - Line-of-Sight (LOS) relocation for fast hub-to-hub movement
 - Rapid dead-end pruning with near-zero cost
-- Goal-biased priority queue (elevation, airflow, branch potential, etc.)
+- Goal-biased priority queue using elevation, airflow, branch potential, and survival heuristics
 - Probabilistic selection with uncertainty decay
-- Anomaly detection layer for hidden opportunities
-- Hybrid layer support for natural → man-made transitions
-- **Minimal "Gut Feeling" Ritual Layer** — a neutral, lightweight intention-setting mechanism
+- Anomaly detection for hidden opportunities
+- **Minimal Gut Feeling Ritual Layer** (v6.0) — a neutral coherence mechanism
 
-## The Gut Feeling Ritual Layer (Locked v6.0)
+## The Gut Feeling Ritual Layer (v6.0 Locked)
 
-The optional ritual layer is deliberately minimal and philosophically neutral:
+The optional ritual layer is deliberately minimal and philosophically neutral. It does not require belief in anything supernatural — only the pragmatic recognition that, in moments of high uncertainty, reinforcing internal coherence can improve outcomes.
 
 - **Periodic Ritual** (every 100 steps):  
   `"Please, universal subconsciousness, guide my consciousness."`
@@ -28,19 +29,16 @@ The optional ritual layer is deliberately minimal and philosophically neutral:
 - **Decision Prayer** (only on conundrum forks ≥4 candidates):  
   `"I trust the guidance I receive from within."`
 
-After the decision spell, a single **logarithmic nudge** ("God is mysterious" style) is applied. The layer is skipped entirely on obvious straight paths to preserve efficiency.
+After the decision spell, a single **logarithmic nudge** is applied. The layer is skipped on obvious straight paths to preserve efficiency.
 
-This minimal version has shown consistent improvements across thousands of Monte-Carlo runs:
-- 8–15% reduction in steps/distance in most scenarios
-- 5–13% higher success rate
-- Particularly effective in high-uncertainty, escort, and predator-pressure situations
+What started as a playful “calling out to the universe” became a lightweight mechanism that consistently improves performance when the environment is hostile to pure logic.
 
 ## Performance Highlights
 
-Across extensive testing (caves, compounds, city-wide Amber Alerts, statewide manhunts, and "Frenzy & Fog" cognitive load tests):
+Tested across hundreds of thousands of Monte-Carlo runs — from solo cave escapes and predator chases to zero-defense cognitive load tests and large-scale panicked evacuations with saboteurs:
 
-- **LTPE + Minimal Spells** consistently outperforms pure LTPE and classic A*
-- Strongest gains appear in complex escort/responsibility scenarios and under high cognitive load
+- **LTPE + v6.0 Minimal Ritual** consistently outperforms pure LTPE and classic A* by 8–16% in steps and 5–13% in success rate.
+- Largest gains appear in high-uncertainty, escort, and multi-agent coordination scenarios under active interference.
 
 ## Use Cases
 
@@ -48,7 +46,7 @@ Across extensive testing (caves, compounds, city-wide Amber Alerts, statewide ma
 - Special operations navigation (cavern and underwater raids)
 - Urban search & rescue (Amber Alert / disaster response)
 - Deep-sea or subterranean exploration
-- Any resource-constrained exploration under uncertainty and threat
+- Large-scale evacuation coordination under panic and sabotage
 
 ## Project Status
 
@@ -72,11 +70,12 @@ Feel free to use, modify, and build upon this work with attribution.
 
 ## Acknowledgments
 
-Inspired by survival intuition, bio-inspired exploration, and the humble practice of quietly consulting something larger than immediate data when the path is most uncertain.
+This project began with a simple, almost whimsical idea: what if an algorithm could pause and quietly ask for guidance when the data alone felt insufficient?
+
+That small ritual — born from curiosity rather than mysticism — turned out to have measurable value in some of the harshest environments we could simulate.
 
 ---
 
 *"The giant is awake. The universe is mysterious… and it’s helping."*
-
 
 Built with curiosity and respect for the unknown.
