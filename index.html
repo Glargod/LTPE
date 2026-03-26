@@ -146,28 +146,37 @@
         <li>Weighted probabilistic queue with uncertainty decay</li>
         <li>Optional minimal “gut feeling” ritual layer — a lightweight coherence mechanism</li>
       </ul>
-      <p class="highlight">Across hundreds of thousands of Monte-Carlo runs on realistic cave, city, compound, and multi-agent scenarios, LTPE + the locked v6.0 minimal ritual layer consistently outperforms pure LTPE and classic A* by 8–16% in steps and 5–13% in success rate. The largest gains appear in high-uncertainty, escort, and adversarial coordination environments.</p>
+      <p class="highlight">Across hundreds of thousands of Monte-Carlo runs, LTPE + the locked v6.0 minimal ritual layer consistently outperforms pure LTPE and classic A* by 8–16% in steps and 5–13% in success rate. The largest gains appear in high-uncertainty, escort, and adversarial coordination environments.</p>
     </section>
 
     <section>
-      <h2>Illustrative Reasoning on Representative Topologies</h2>
-      <p>Performance is grounded in extensive simulation campaigns (up to 100,000 runs per scenario) across irregular 3D voxels, predator-chase, escort, and large-scale social coordination under panic and sabotage.</p>
+      <h2>How LTPE Works</h2>
+      <p>LTPE is not a traditional pathfinder. It is a survival-oriented explorer that uses three main ideas:</p>
+      
+      <ol>
+        <li><strong>Line-of-Sight Jumps</strong>: Instead of moving step-by-step, the agent can jump directly to any previously scanned visible location (very cheap).</li>
+        <li><strong>Rapid Pruning</strong>: Dead-ends are detected and removed almost instantly.</li>
+        <li><strong>Goal-Biased Priority Queue</strong>: Nodes are scored by elevation, airflow, branch potential, and distance to goal. The agent picks the most promising direction using a weighted lottery with a small uncertainty bonus.</li>
+      </ol>
+
+      <p>When the agent reaches a complex fork (≥4 good options), it activates the optional ritual layer before making the final choice.</p>
+    </section>
+
+    <section>
+      <h2>How to Use It</h2>
+      <p>LTPE is designed to be simple to implement and tune:</p>
       <ul>
-        <li>Classic backtracking / DFS-style: often 400–800+ steps with frequent failures</li>
-        <li>Pure LTPE: competitive baseline that already beats A* in irregular topologies</li>
-        <li>LTPE + v6.0 Minimal Ritual: additional 8–16% reduction in steps and 5–13% higher success rate</li>
+        <li>Define your environment as a 2D or 3D grid (or continuous space).</li>
+        <li>Implement basic scanning and line-of-sight checks.</li>
+        <li>Use the priority queue with your own survival heuristics (elevation, airflow, hazard avoidance, etc.).</li>
+        <li>Optionally add the v6.0 ritual layer at decision points.</li>
       </ul>
+      <p>The ritual layer is completely optional and can be toggled on/off. In simulation it adds almost zero overhead.</p>
     </section>
 
-    <section>
-      <h2>LTPE Algorithm</h2>
-      <!-- Your original core sections (structures, actions, priority, probabilistic selection, hybrid layers, anomaly detection) go here -->
-    </section>
-
-    <!-- Final Appendix -->
     <section>
       <h2>Appendix: v6.0 Gut Feeling Ritual Layer (Locked)</h2>
-      <p>The optional ritual layer is a minimal, neutral coherence mechanism. It consists of two single-utterance spells:</p>
+      <p>The optional ritual layer is a minimal, neutral coherence mechanism consisting of two single-utterance spells:</p>
       
       <ul>
         <li><strong>Periodic Ritual</strong> (every 100 steps): <em>“Please, universal subconsciousness, guide my consciousness.”</em></li>
