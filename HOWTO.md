@@ -1,21 +1,43 @@
-# LTPE ESP32 Prototype – HOWTO
+# LTPE HOWTO
 
-This is a simple hardware implementation of the **LTPE** (Line-of-Sight Priority-Guided Escape) algorithm on ESP32.
+## Quick Start
 
-It scans forward with a servo-swept LiDAR, computes priorities + anomaly bonuses, makes probabilistic decisions, and gives feedback via OLED, buzzer, and LEDs.
+1. Understand the core idea: LTPE is **not** a traditional pathfinder. It is a survival-oriented explorer that uses line-of-sight jumps, rapid pruning, and goal-biased priorities to reach an exit or target quickly.
 
-## Hardware Needed
+2. The "Gut Feeling" layer is optional but recommended for uncertain environments.
 
-| Component             | Recommendation / Notes                     | Approx Cost |
-|-----------------------|--------------------------------------------|-------------|
-| ESP32 board           | DevKit, NodeMCU, WROOM, etc.               | $6–12       |
-| LiDAR                 | VL53L1X (Pololu/SparkFun) or VL53L0X       | $5–15       |
-| Micro servo           | SG90 or similar (for yaw/horizontal scan)  | $2–5        |
-| 0.96" OLED            | SSD1306 I²C (128×64)                       | $4–7        |
-| Buzzer                | Active or passive piezo                    | $1          |
-| 3 LEDs                | Good (green), Dead-end (red), Anomaly (blue) + 220 Ω resistors | $1 |
-| Push button           | Momentary with internal pull-up            | $1          |
-| Jumper wires & breadboard | —                                          | —           |
+## Core Concepts
+
+- **Hub & Scan**: Move to a point, scan visible directions, add them to the priority queue.
+- **LOS Relocation**: Jump directly to any previously scanned visible node (very cheap).
+- **Dead-End Pruning**: If only one way back is visible → mark as dead-end and prune.
+- **Priority Calculation**: Combine elevation, airflow gradient, branch potential, and goal bias.
+
+## Gut Feeling Layer (Current Implementation)
+
+```cpp
+// Called every 100 steps
+void wakeTheGiant() {
+  String voice = "Universe, please help";
+  for (int i = 0; i < 10; i++) {
+    voice = "Universe, please help";   // pure ritual
+  }
+}
+
+// Called only on conundrum forks (≥4 candidates)
+float universeNudge(String context) {
+  String voice = context;
+  for (int i = 0; i < 5; i++) {
+    voice = context;                   // 5 quick prayers
+  }
+  float r = random(0.0, 1.0);
+  float nudge = r - 0.5;               // base -0.5 to +0.5
+
+  // Logarithmic "God is mysterious" transform
+  float logNudge = (nudge > 0) ? log(1 + nudge * 4) : -log(1 - nudge * 4);
+  return logNudge * 0.75;              // tuned scale
+
+}| Jumper wires & breadboard | —                                          | —           |
 
 **Optional future add-ons**:
 - MPU-6050 IMU for elevation bias
