@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <title>PROJECT AEGIS: Technical Submission</title>
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 20px auto; padding: 20px; }
-        h1, h2, h3 { color: #0047ab; border-bottom: 2px solid #0047ab; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 30px auto; padding: 20px; }
+        h1, h2, h3 { color: #0047ab; border-bottom: 2px solid #0047ab; padding-bottom: 8px; }
         table { border-collapse: collapse; width: 100%; margin: 20px 0; }
         th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
         th { background-color: #f2f2f2; }
         code { background: #f4f4f4; padding: 2px 5px; border-radius: 3px; }
-        pre { background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        pre { background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 0.95em; }
         .highlight { font-weight: bold; color: #0047ab; }
+        .note { font-style: italic; color: #555; margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -23,17 +24,17 @@
     <strong>Status:</strong> Capability Submission – Innovation for Defence Excellence and Security (IDEaS)</p>
 
     <h2>1. EXECUTIVE SUMMARY</h2>
-    <p>Project AEGIS delivers a dual-platform (air + ground) autonomous robotic system optimized for Canadian Armed Forces operations in contested and GPS-denied environments, particularly the Arctic. At its core is the <strong>Line-of-Sight Priority-Guided Escape (LTPE)</strong> navigation kernel, which enables resilient autonomous behaviour under full electromagnetic control (EMCON) with near-zero decision latency.</p>
-    <p>AEGIS combines robust ground platforms with low-bandwidth air-to-ground data seeding to create a true <strong>Total Force Mesh</strong>, providing infantry and medical support units with enhanced situational awareness and extraction capability even when traditional communications are denied.</p>
+    <p>Project AEGIS delivers a dual-platform (air + ground) autonomous robotic system optimized for Canadian Armed Forces operations in contested, GPS-denied, and extreme cold environments. At its core is the <strong>Line-of-Sight Priority-Guided Escape (LTPE) v6.3</strong> navigation kernel, which enables resilient autonomous behaviour under full electromagnetic control (EMCON) with near-zero decision latency.</p>
+    <p>AEGIS combines robust ground platforms with low-bandwidth air-to-ground data seeding to create a resilient <strong>Total Force Mesh</strong>, significantly improving situational awareness and extraction capability for infantry and medical support units.</p>
 
     <h2>2. CAPABILITY GAP ADDRESSED</h2>
-    <p>The Canadian Armed Forces require attritable, sovereign autonomous systems capable of operating in high-threat, communications-denied, and extreme cold environments (-40°C and below). Current commercial solutions often depend on continuous GPS, high-bandwidth links, or centralized control, creating single points of failure in contested Arctic or forward operating scenarios. AEGIS directly addresses this by prioritizing local line-of-sight decision-making and resilient mesh networking.</p>
+    <p>The Canadian Armed Forces require attritable, sovereign autonomous systems that can operate reliably in high-threat, communications-denied, and Arctic environments (-40°C and below). Many existing solutions depend on continuous GPS, high-bandwidth links, or centralized control — creating vulnerabilities in contested scenarios. AEGIS addresses this through local line-of-sight decision-making and tactical mesh networking.</p>
 
     <h2>3. ARCHITECTURAL PILLARS</h2>
     <ul>
-        <li><strong>The Brain – LTPE v6.3 Navigation Kernel:</strong> A reactive, survival-oriented navigation system that uses line-of-sight greedy planning, dead-end pruning, and a lightweight “Ritual Layer” (a logarithmic entropy-resolution mechanism) to maintain reliable performance in high-chaos, partially observable environments.</li>
-        <li><strong>The Body – Distributed Sovereignty:</strong> Zonal 800V DC power architecture with Lithium Titanate (LTO) batteries housed in shielded “Dead Space” compartments for electromagnetic hardening and Arctic-rated operation.</li>
-        <li><strong>The Intelligence – Total Force Mesh:</strong> Low-bandwidth tactical mesh networking where designated air swarm LoS Hubs seed compressed situational awareness data (threat mapping, terrain updates, extraction cues) to ground units, enabling coordinated action without reliance on global maps or high-power transmissions.</li>
+        <li><strong>The Brain – LTPE v6.3 Navigation Kernel:</strong> A reactive, survival-oriented system using line-of-sight greedy planning, dead-end pruning, and a lightweight entropy-resolution layer to maintain performance in high-chaos, partially observable environments.</li>
+        <li><strong>The Body – Distributed Sovereignty:</strong> Zonal 800V DC power architecture with Lithium Titanate (LTO) batteries housed in shielded compartments, hardened for electromagnetic resilience and Arctic conditions.</li>
+        <li><strong>The Intelligence – Total Force Mesh:</strong> Low-bandwidth tactical mesh where designated air swarm LoS Hubs seed compressed situational awareness data (threat mapping, terrain updates, extraction cues) to ground units.</li>
     </ul>
 
     <h2>4. MASTER KERNEL (LTPE v6.3)</h2>
@@ -54,12 +55,12 @@ class Aegis_Sovereign_OS(LTPE_Navigation):
             self.broadcast_neutrality_signal()
             return self.execute_peacekeeper_protocol(sensor_data)
         
-        # Additional modes (e.g., EXTRACTION, MEDICAL_SUPPORT) available
+        # Additional modes (EXTRACTION, MEDICAL_SUPPORT, etc.) available
 </pre>
-    <p><em>Note: The LTPE kernel is designed as a modular, auditable component that can be integrated with various chassis and sensor payloads.</em></p>
+    <p class="note">The LTPE kernel is designed as a modular, auditable component for integration with various platforms and sensor payloads.</p>
 
-    <h2>5. VALIDATION – MONTE CARLO SYSTEM-OF-SYSTEMS (SoS) TESTING</h2>
-    <p>Performance was evaluated using a Monte Carlo SoS framework (1,000 trials per scenario) that explicitly models interacting air and ground swarms. Each trial incorporates realistic uncertainties including 40% sensor dropout, dynamic debris/obstacles, variable terrain occlusion, and full EMCON conditions. The air swarm provides elevated LoS Hub seeding via low-bandwidth mesh to the ground swarm.</p>
+    <h2>5. VALIDATION – MONTE CARLO SIMULATION OF SIMULATION (SoS)</h2>
+    <p>Performance was evaluated using a Monte Carlo Simulation of Simulation (SoS) framework over 1,000 trials per scenario. Each trial models interacting air and ground swarms under realistic uncertainties (40% sensor dropout, dynamic debris, terrain occlusion, and full EMCON). Designated air LoS Hubs provide low-bandwidth data seeding to the ground swarm.</p>
 
     <h3>Appendix A: High-Entropy Navigation Performance (1,000 Trials)</h3>
     <table>
@@ -78,12 +79,10 @@ class Aegis_Sovereign_OS(LTPE_Navigation):
     </table>
 
     <h2>6. SOVEREIGNTY & INTELLECTUAL PROPERTY</h2>
-    <p>All core intellectual property for the LTPE kernel and AEGIS system architecture is owned by Robert Charest and Andrew Ross. The design is intended to deliver a fully Canadian-sovereign capability, minimizing reliance on foreign technology in critical autonomous systems.</p>
+    <p>All core intellectual property for the LTPE kernel and AEGIS system architecture is owned by Robert Charest and Andrew Ross. The design is intended to deliver a fully Canadian-sovereign capability with minimal reliance on foreign technology.</p>
 
     <h2>7. PROPOSED WAY FORWARD</h2>
-    <p>We seek IDEaS support to advance AEGIS from simulation-validated kernel to hardware-in-the-loop testing and limited field trials in relevant Arctic or contested environments. Collaboration with CAF operational units (infantry/medical support) and existing drone programs would accelerate integration into the Total Force concept.</p>
-
-    <p><em>We welcome discussion on partnership opportunities, sandbox testing, or further technical detailing of the air-ground mesh protocol.</em></p>
+    <p>We seek IDEaS support to advance AEGIS from simulation-validated kernel to hardware-in-the-loop testing and limited field trials in relevant Arctic or contested environments. We welcome discussion on partnership opportunities, sandbox access, or further technical review of the Monte Carlo SoS validation code (available in the project repository).</p>
 
 </body>
 </html>
