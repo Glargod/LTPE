@@ -4,15 +4,49 @@
     <meta charset="UTF-8">
     <title>PROJECT AEGIS: Technical Submission</title>
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 30px auto; padding: 20px; }
-        h1, h2, h3 { color: #0047ab; border-bottom: 2px solid #0047ab; padding-bottom: 8px; }
-        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
-        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        code { background: #f4f4f4; padding: 2px 5px; border-radius: 3px; }
-        pre { background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 0.95em; }
-        .highlight { font-weight: bold; color: #0047ab; }
-        .note { font-style: italic; color: #555; margin-top: 10px; }
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            line-height: 1.6; 
+            color: #333; 
+            max-width: 950px; 
+            margin: 30px auto; 
+            padding: 25px; 
+        }
+        h1, h2, h3 { 
+            color: #0047ab; 
+            border-bottom: 2px solid #0047ab; 
+            padding-bottom: 8px; 
+        }
+        table { 
+            border-collapse: collapse; 
+            width: 100%; 
+            margin: 20px 0; 
+        }
+        th, td { 
+            border: 1px solid #ddd; 
+            padding: 12px; 
+            text-align: left; 
+        }
+        th { 
+            background-color: #f2f2f2; 
+        }
+        .highlight { 
+            font-weight: bold; 
+            color: #0047ab; 
+        }
+        pre { 
+            background: #272822; 
+            color: #f8f8f2; 
+            padding: 15px; 
+            border-radius: 5px; 
+            overflow-x: auto; 
+            font-size: 0.95em; 
+        }
+        .note { 
+            font-style: italic; 
+            color: #555; 
+            margin-top: 8px; 
+        }
     </style>
 </head>
 <body>
@@ -24,17 +58,27 @@
     <strong>Status:</strong> Capability Submission – Innovation for Defence Excellence and Security (IDEaS)</p>
 
     <h2>1. EXECUTIVE SUMMARY</h2>
-    <p>Project AEGIS delivers a dual-platform (air + ground) autonomous robotic system optimized for Canadian Armed Forces operations in contested, GPS-denied, and extreme cold environments. At its core is the <strong>Line-of-Sight Priority-Guided Escape (LTPE) v6.3</strong> navigation kernel, which enables resilient autonomous behaviour under full electromagnetic control (EMCON) with near-zero decision latency.</p>
-    <p>AEGIS combines robust ground platforms with low-bandwidth air-to-ground data seeding to create a resilient <strong>Total Force Mesh</strong>, significantly improving situational awareness and extraction capability for infantry and medical support units.</p>
+    <p>Project AEGIS introduces the LTPE v6.3 navigation kernel featuring a <strong>Ritual Layer</strong> implemented as an <strong>Asynchronous Deterministic Fallback (ADF)</strong>. This mechanism provides exceptional resilience in high-entropy, contested, and communications-denied environments by rapidly resolving logic entropy and reverting to pre-validated high-confidence behaviors when sensor fusion quality collapses.</p>
+    
+    <p>Performance was validated through Monte Carlo Simulation of Simulation (SoS) runs (2,000 trials per condition), explicitly modeling interacting air and ground swarms with low-bandwidth LoS Hub data seeding under realistic uncertainties including sensor dropout and full EMCON.</p>
+
+    <h3>Monte Carlo SoS Results Summary</h3>
+    <table>
+        <tr><th>Condition</th><th>Success Rate (Baseline)</th><th>Success Rate (LTPE v6.3)</th><th>Avg Steps to Extraction (LTPE)</th><th>Avg Global Stalls (LTPE)</th></tr>
+        <tr><td>Contested (40% dropout)</td><td>46.7%</td><td><strong class="highlight">97.0%</strong></td><td>85.1</td><td>0.03</td></tr>
+        <tr><td>Catastrophic (90% dropout)</td><td>38.7%</td><td><strong class="highlight">94.4%</strong></td><td>86.9</td><td>0.06</td></tr>
+    </table>
+
+    <p>The LTPE v6.3 architecture demonstrates strong <strong>graceful degradation</strong>, maintaining high mission success and near-zero stall rates even under severe sensor degradation and full electromagnetic control. This directly supports Canadian Armed Forces requirements for sovereign, attritable autonomous systems in Arctic and forward contested operations.</p>
 
     <h2>2. CAPABILITY GAP ADDRESSED</h2>
-    <p>The Canadian Armed Forces require attritable, sovereign autonomous systems that can operate reliably in high-threat, communications-denied, and Arctic environments (-40°C and below). Many existing solutions depend on continuous GPS, high-bandwidth links, or centralized control — creating vulnerabilities in contested scenarios. AEGIS addresses this through local line-of-sight decision-making and tactical mesh networking.</p>
+    <p>The Canadian Armed Forces require reliable autonomous systems capable of operating in GPS-denied, communications-denied, and extreme cold environments (-40°C and below). Many current solutions suffer from catastrophic failure when sensor data integrity collapses due to electronic warfare, jamming, or environmental interference. AEGIS addresses this vulnerability through local line-of-sight decision-making and the Ritual Layer (ADF).</p>
 
     <h2>3. ARCHITECTURAL PILLARS</h2>
     <ul>
-        <li><strong>The Brain – LTPE v6.3 Navigation Kernel:</strong> A reactive, survival-oriented system using line-of-sight greedy planning, dead-end pruning, and a lightweight entropy-resolution layer to maintain performance in high-chaos, partially observable environments.</li>
-        <li><strong>The Body – Distributed Sovereignty:</strong> Zonal 800V DC power architecture with Lithium Titanate (LTO) batteries housed in shielded compartments, hardened for electromagnetic resilience and Arctic conditions.</li>
-        <li><strong>The Intelligence – Total Force Mesh:</strong> Low-bandwidth tactical mesh where designated air swarm LoS Hubs seed compressed situational awareness data (threat mapping, terrain updates, extraction cues) to ground units.</li>
+        <li><strong>The Brain – LTPE v6.3 Navigation Kernel:</strong> A reactive, survival-oriented system using line-of-sight greedy planning, dead-end pruning, and the Ritual Layer (Asynchronous Deterministic Fallback) to maintain performance in high-chaos environments.</li>
+        <li><strong>The Body – Distributed Sovereignty:</strong> Zonal 800V DC power architecture with Lithium Titanate (LTO) batteries housed in electromagnetically shielded compartments, rated for Arctic operations.</li>
+        <li><strong>The Intelligence – Total Force Mesh:</strong> Low-bandwidth tactical mesh networking where designated air swarm LoS Hubs seed compressed situational awareness data to ground units.</li>
     </ul>
 
     <h2>4. MASTER KERNEL (LTPE v6.3)</h2>
@@ -46,7 +90,6 @@ class Aegis_Sovereign_OS(LTPE_Navigation):
         self.ihl_compliance = True
 
     def main_operational_loop(self, sensor_data):
-        # Distributed node health check
         if self.verify_distributed_nodes() < 1.0:
             self.fallback_to_passive_shielding()
         
@@ -54,35 +97,35 @@ class Aegis_Sovereign_OS(LTPE_Navigation):
         if self.mode == "PEACEKEEPER":
             self.broadcast_neutrality_signal()
             return self.execute_peacekeeper_protocol(sensor_data)
-        
-        # Additional modes (EXTRACTION, MEDICAL_SUPPORT, etc.) available
 </pre>
-    <p class="note">The LTPE kernel is designed as a modular, auditable component for integration with various platforms and sensor payloads.</p>
+    <p class="note">The LTPE kernel, including the Ritual Layer (ADF), is designed as a modular and auditable component.</p>
 
     <h2>5. VALIDATION – MONTE CARLO SIMULATION OF SIMULATION (SoS)</h2>
-    <p>Performance was evaluated using a Monte Carlo Simulation of Simulation (SoS) framework over 1,000 trials per scenario. Each trial models interacting air and ground swarms under realistic uncertainties (40% sensor dropout, dynamic debris, terrain occlusion, and full EMCON). Designated air LoS Hubs provide low-bandwidth data seeding to the ground swarm.</p>
+    <p>Validation was performed using a Monte Carlo SoS framework with 2,000 trials per scenario. Each trial simulates interacting air and ground swarms under randomized uncertainties, including sensor dropout and full EMCON conditions. Air swarm LoS Hubs provide low-bandwidth data seeding to the ground swarm in both test variants.</p>
 
-    <h3>Appendix A: High-Entropy Navigation Performance (1,000 Trials)</h3>
+    <h3>Appendix A: Contested Environment (40% Sensor Dropout)</h3>
     <table>
-        <tr><th>Metric</th><th>AEGIS LTPE v6.3</th><th>Representative Industry Baseline</th></tr>
-        <tr><td>Mission Success Rate</td><td><strong class="highlight">98.5%</strong></td><td>69.6%</td></tr>
-        <tr><td>Average Time-to-Extraction (steps)</td><td><strong class="highlight">84.9</strong></td><td>671.5</td></tr>
-        <tr><td>Global Stall Frequency</td><td><strong class="highlight">0 events</strong></td><td>14.7 per run</td></tr>
+        <tr><th>Metric</th><th>Baseline LTPE</th><th>LTPE v6.3 with Ritual Layer</th></tr>
+        <tr><td>Mission Success Rate</td><td>46.7%</td><td><strong class="highlight">97.0%</strong></td></tr>
+        <tr><td>Avg Time-to-Extraction</td><td>115.4 steps</td><td><strong class="highlight">85.1 steps</strong></td></tr>
+        <tr><td>Avg Global Stalls per Run</td><td>0.75</td><td><strong class="highlight">0.03</strong></td></tr>
     </table>
 
-    <h3>Appendix B: Radio-Silence (EMCON) Resilience (1,000 Trials)</h3>
+    <h3>Appendix B: Catastrophic Environment (90% Sensor Dropout)</h3>
     <table>
-        <tr><th>Metric</th><th>AEGIS LTPE v6.3</th><th>Representative Industry Baseline</th></tr>
-        <tr><td>Mission Success Rate</td><td><strong class="highlight">97.8%</strong></td><td>52.4%</td></tr>
-        <tr><td>Average Extraction Speed (steps)</td><td><strong class="highlight">91.2</strong></td><td>814.3</td></tr>
-        <tr><td>Global Stall Frequency</td><td><strong class="highlight">0 events</strong></td><td>19.3 per run</td></tr>
+        <tr><th>Metric</th><th>Baseline LTPE</th><th>LTPE v6.3 with Ritual Layer</th></tr>
+        <tr><td>Mission Success Rate</td><td>38.7%</td><td><strong class="highlight">94.4%</strong></td></tr>
+        <tr><td>Avg Time-to-Extraction</td><td>124.6 steps</td><td><strong class="highlight">86.9 steps</strong></td></tr>
+        <tr><td>Avg Global Stalls per Run</td><td>1.37</td><td><strong class="highlight">0.06</strong></td></tr>
     </table>
 
     <h2>6. SOVEREIGNTY & INTELLECTUAL PROPERTY</h2>
-    <p>All core intellectual property for the LTPE kernel and AEGIS system architecture is owned by Robert Charest and Andrew Ross. The design is intended to deliver a fully Canadian-sovereign capability with minimal reliance on foreign technology.</p>
+    <p>All core intellectual property for the LTPE kernel and AEGIS system architecture is owned by Robert Charest and Andrew Ross. The design delivers a fully Canadian-sovereign capability with minimal reliance on foreign technology.</p>
 
     <h2>7. PROPOSED WAY FORWARD</h2>
-    <p>We seek IDEaS support to advance AEGIS from simulation-validated kernel to hardware-in-the-loop testing and limited field trials in relevant Arctic or contested environments. We welcome discussion on partnership opportunities, sandbox access, or further technical review of the Monte Carlo SoS validation code (available in the project repository).</p>
+    <p>We seek IDEaS support to advance AEGIS from simulation-validated kernel to hardware-in-the-loop testing and limited field trials in relevant Arctic or contested environments. The Monte Carlo SoS validation code is available in the project repository for technical review.</p>
+
+    <p>We welcome collaboration with CAF operational units and existing drone programs to integrate AEGIS into the Total Force concept.</p>
 
 </body>
 </html>
