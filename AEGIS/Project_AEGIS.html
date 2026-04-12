@@ -47,6 +47,10 @@
             color: #555; 
             margin-top: 8px; 
         }
+        .repo-link {
+            color: #0047ab;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -76,7 +80,7 @@
 
     <h2>3. ARCHITECTURAL PILLARS</h2>
     <ul>
-        <li><strong>The Brain – LTPE v6.3 Navigation Kernel:</strong> A reactive, survival-oriented system using line-of-sight greedy planning, dead-end pruning, and the Ritual Layer (Asynchronous Deterministic Fallback) to maintain performance in high-chaos environments.</li>
+        <li><strong>The Brain – LTPE v6.3 Navigation Kernel:</strong> A reactive, survival-oriented system using line-of-sight greedy planning, dead-end pruning, and the Ritual Layer (Asynchronous Deterministic Fallback) to maintain performance in high-chaos environments. Full implementation available at <a href="https://github.com/Glargod/LTPE" target="_blank" class="repo-link">github.com/Glargod/LTPE</a>.</li>
         <li><strong>The Body – Distributed Sovereignty:</strong> Zonal 800V DC power architecture with Lithium Titanate (LTO) batteries housed in electromagnetically shielded compartments, rated for Arctic operations.</li>
         <li><strong>The Intelligence – Total Force Mesh:</strong> Low-bandwidth tactical mesh networking where designated air swarm LoS Hubs seed compressed situational awareness data to ground units.</li>
     </ul>
@@ -98,7 +102,7 @@ class Aegis_Sovereign_OS(LTPE_Navigation):
             self.broadcast_neutrality_signal()
             return self.execute_peacekeeper_protocol(sensor_data)
 </pre>
-    <p class="note">The LTPE kernel, including the Ritual Layer (ADF), is designed as a modular and auditable component.</p>
+    <p class="note">The complete LTPE v6.3 kernel, including the Ritual Layer (ADF), is open for technical review at <a href="https://github.com/Glargod/LTPE" target="_blank" class="repo-link">github.com/Glargod/LTPE</a>.</p>
 
     <h2>5. VALIDATION – MONTE CARLO SIMULATION OF SIMULATION (SoS)</h2>
     <p>Validation was performed using a Monte Carlo SoS framework with 2,000 trials per scenario. Each trial simulates interacting air and ground swarms under randomized uncertainties, including sensor dropout and full EMCON conditions. Air swarm LoS Hubs provide low-bandwidth data seeding to the ground swarm in both test variants.</p>
@@ -120,10 +124,10 @@ class Aegis_Sovereign_OS(LTPE_Navigation):
     </table>
 
     <h2>6. SOVEREIGNTY & INTELLECTUAL PROPERTY</h2>
-    <p>All core intellectual property for the LTPE kernel and AEGIS system architecture is owned by Robert Charest and Andrew Ross. The design delivers a fully Canadian-sovereign capability with minimal reliance on foreign technology.</p>
+    <p>All core intellectual property for the LTPE kernel and AEGIS system architecture is owned by Robert Charest and Andrew Ross. The full source code is available for review at <a href="https://github.com/Glargod/LTPE" target="_blank" class="repo-link">github.com/Glargod/LTPE</a>.</p>
 
     <h2>7. PROPOSED WAY FORWARD</h2>
-    <p>We seek IDEaS support to advance AEGIS from simulation-validated kernel to hardware-in-the-loop testing and limited field trials in relevant Arctic or contested environments. The Monte Carlo SoS validation code is available in the project repository for technical review.</p>
+    <p>We seek IDEaS support to advance AEGIS from simulation-validated kernel to hardware-in-the-loop testing and limited field trials in relevant Arctic or contested environments. The Monte Carlo SoS validation code and complete LTPE repository are available for technical evaluation.</p>
 
     <p>We welcome collaboration with CAF operational units and existing drone programs to integrate AEGIS into the Total Force concept.</p>
 
