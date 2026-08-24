@@ -84,6 +84,22 @@
       border-radius: 8px;
       margin: 1.8rem 0;
     }
+    .doc-card {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-left: 5px solid var(--accent);
+      padding: 1.5rem 1.6rem;
+      border-radius: 10px;
+      margin: 1.8rem 0;
+    }
+    .doc-card a {
+      color: var(--primary-dark);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .doc-card a:hover {
+      text-decoration: underline;
+    }
     pre {
       font-family: 'IBM Plex Mono', monospace;
       background: #f1f5f9;
@@ -147,6 +163,18 @@
         <li>Optional minimal “gut feeling” ritual layer — a lightweight coherence mechanism</li>
       </ul>
       <p class="highlight">Across hundreds of thousands of Monte-Carlo runs, LTPE + the locked v6.0 minimal ritual layer consistently outperforms pure LTPE and classic A* by 8–16% in steps and 5–13% in success rate. The largest gains appear in high-uncertainty, escort, and adversarial coordination environments.</p>
+    </section>
+
+    <section>
+      <h2>Technical Documentation</h2>
+      <div class="doc-card">
+        <strong>📄 LTPE White Paper v6.0</strong><br>
+        Complete formal specification of the algorithm, including all mathematical formulas, full pseudocode, locked parameter set, and the v6.0 Gut Feeling Ritual Layer.<br><br>
+        <a href="https://github.com/Glargod/LTPE/blob/main/LTPE_White_Paper_v6.0.md">View White Paper →</a>
+        &nbsp;·&nbsp;
+        <a href="https://raw.githubusercontent.com/Glargod/LTPE/main/LTPE_White_Paper_v6.0.md">Raw Markdown</a>
+      </div>
+      <p>The white paper contains the authoritative description of line-of-sight hub relocation, rapid dead-end pruning, goal-biased priority scoring, weighted probabilistic selection, and the optional logarithmic coherence nudge used in the ritual layer.</p>
     </section>
 
     <section>
