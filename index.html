@@ -174,7 +174,23 @@
         &nbsp;·&nbsp;
         <a href="LTPE_White_Paper_v6.0.html">html</a>
       </div>
-      <p>The white paper contains the authoritative description of line-of-sight hub relocation, rapid dead-end pruning, goal-biased priority scoring, weighted probabilistic selection, and the optional logarithmic coherence nudge used in the ritual layer.</p>
+      <div class="doc-card">
+        <strong>🧱 2D reference core</strong><br>
+        Executable grid implementation of the locked loop: Bresenham LOS, 4-connected moves, dead-end pruning, ritual nudge, softmax pick.<br><br>
+        <a href="https://github.com/Glargod/LTPE/tree/main/ltpe_core">ltpe_core/ →</a>
+        &nbsp;·&nbsp;
+        <a href="https://github.com/Glargod/LTPE/blob/main/simulations/run_cave_mc.py">2D Monte-Carlo</a>
+      </div>
+      <div class="doc-card">
+        <strong>🌍 3D voxel core</strong><br>
+        Same v6.0 formulas on a 6-connected voxel volume with 3D Bresenham line-of-sight. This is the intended operating domain (caves, mines, lava tubes).<br><br>
+        <a href="https://github.com/Glargod/LTPE/tree/main/ltpe_3d">ltpe_3d/ →</a>
+        &nbsp;·&nbsp;
+        <a href="https://github.com/Glargod/LTPE/blob/main/ltpe_3d/ltpe3d.py">ltpe3d.py</a>
+        &nbsp;·&nbsp;
+        <a href="https://github.com/Glargod/LTPE/blob/main/simulations/run_cave3d_mc.py">3D Monte-Carlo</a>
+      </div>
+      <p>The white paper is the locked spec. The 2D core is the simple reference. The 3D core is the same loop in the environments LTPE was designed for.</p>
     </section>
 
     <section>
@@ -200,6 +216,8 @@
         <li>Optionally add the v6.0 ritual layer at decision points.</li>
       </ul>
       <p>The ritual layer is completely optional and can be toggled on/off. In simulation it adds almost zero overhead.</p>
+      <pre>python3 simulations/run_cave_mc.py --runs 80 --both
+python3 simulations/run_cave3d_mc.py --runs 24 --both</pre>
     </section>
 
     <section>
