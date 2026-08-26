@@ -52,15 +52,31 @@ Tested across hundreds of thousands of Monte-Carlo runs — from solo cave escap
 
 **Active Research & Development** (2026)
 
-The repository contains conceptual specification, pseudocode, simulation framework, and performance data from extensive testing.
+Locked spec plus executable 2D and 3D reference cores.
+
+## Specification & Code
+
+- [LTPE White Paper v6.0](LTPE_White_Paper_v6.0.html) — locked formulas, pseudocode, ritual layer
+- [`ltpe_core/`](ltpe_core/) — 2D grid reference (`ltpe.py`)
+- [`ltpe_3d/`](ltpe_3d/) — 3D voxel reference (`ltpe3d.py`) — 6-connected moves, 3D Bresenham LOS
+- [`simulations/run_cave_mc.py`](simulations/run_cave_mc.py) — 2D cave Monte-Carlo
+- [`simulations/run_cave3d_mc.py`](simulations/run_cave3d_mc.py) — 3D cave Monte-Carlo
+- [`LTPE_ESP32.ino`](LTPE_ESP32.ino) — ESP32 scan / score / ritual sketch
+- [`HOWTO.md`](HOWTO.md) — hardware wiring
+
+```bash
+python3 simulations/run_cave_mc.py --runs 80 --both
+python3 simulations/run_cave3d_mc.py --runs 24 --both
+```
 
 ## Repository Contents
 
-- `ltpe_core/` — Core algorithm structures and pseudocode
-- `simulations/` — Monte-Carlo test harness
-- `docs/` — Technical notes and appendices
+- `ltpe_core/` — 2D executable core
+- `ltpe_3d/` — 3D voxel executable core
+- `simulations/` — Monte-Carlo harnesses
 - `LTPE_ESP32.ino` — ESP32 implementation
 - `HOWTO.md` — Implementation guide
+- `LTPE_White_Paper_v6.0.html` — locked specification
 
 ## License
 
