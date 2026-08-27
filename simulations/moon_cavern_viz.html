@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LTPE v6.0 — Lunar lava tube</title>
+<style>
+:root{--bg:#120e0a;--panel:#1b1510;--ink:#f3ebe0;--muted:#b7a38c;--line:#3a2e24;--ltpe:#e8c07a;--astar:#ff6b6b}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.4 Segoe UI,system-ui,sans-serif}
+header{padding:12px 16px;border-bottom:1px solid var(--line)}h1{margin:0;font-size:17px}.sub{color:var(--muted);font-size:12px}
+.layout{display:grid;grid-template-columns:1fr 300px;min-height:calc(100vh - 52px)}
+.main{padding:10px 12px;display:grid;grid-template-columns:1fr 96px;gap:10px}
+canvas#view{width:100%;height:auto;background:#0a0705;border:1px solid var(--line);border-radius:10px}
+.floors{display:flex;flex-direction:column;gap:4px;overflow:auto;max-height:70vh}
+.fl{border:1px solid var(--line);border-radius:6px;padding:2px;cursor:pointer;background:#16100c}.fl.on{border-color:var(--ltpe)}
+.fl canvas{width:100%;height:auto;display:block}.fl .t{font-size:10px;color:var(--muted);text-align:center}
+aside{border-left:1px solid var(--line);background:var(--panel);padding:12px}
+.row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+button{background:#2a2118;color:var(--ink);border:1px solid #4a3b2c;border-radius:8px;padding:7px 10px;cursor:pointer;font-weight:600}
+button.primary{background:#3a2e16;border-color:#8a6a2a;color:var(--ltpe)}
+label.tog{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:13px}
+input[type=number]{width:70px;background:#16100c;color:var(--ink);border:1px solid #4a3b2c;border-radius:6px;padding:5px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.card{background:#16100c;border:1px solid var(--line);border-radius:10px;padding:9px}
+.card h3{margin:0 0 4px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.n{font-size:20px;font-weight:700}.lt .n{color:var(--ltpe)}.as .n{color:var(--astar)}
+.log{font:11px/1.35 ui-monospace,Consolas,monospace;background:#0d0907;border:1px solid var(--line);border-radius:8px;padding:8px;height:170px;overflow:auto;white-space:pre-wrap}
+.note{color:var(--muted);font-size:12px;margin-top:10px}
+</style></head><body>
+<header><h1>LTPE · Mare lava tube</h1>
+<div class="sub">Hypothetical skylight escape · start deep · ice in shadow · radiation at the lip</div></header>
+<div class="layout"><div class="main">
+<canvas id="view" width="760" height="520"></canvas>
+<div class="floors" id="floors"></div></div>
+<aside>
+<div class="row"><button class="primary" id="btnNew">New tube</button><button id="btnStep">Step</button><button id="btnAuto">Auto</button><button id="btnReset">Reset</button></div>
+<div class="row"><label class="tog"><input type="checkbox" id="ritual" checked> Ritual</label>
+<label class="tog"><input type="checkbox" id="showA" checked> A* path</label>
+<label class="tog"><input type="checkbox" id="follow" checked> Follow floor</label></div>
+<div class="row"><label class="tog">seed <input id="seed" type="number" value="21"></label></div>
+<div class="stats"><div class="card lt"><h3>LTPE cost</h3><div class="n" id="ltN">0</div><div class="sub" id="ltS">idle</div></div>
+<div class="card as"><h3>A* steps</h3><div class="n" id="asN">—</div><div class="sub" id="asS">idle</div></div></div>
+<div class="sub" id="pos">z —</div><div class="log" id="log"></div>
+<p class="note">Schematic mare tube. Higher Z toward vacuum. Gold = LTPE, red = A*, blue wash = ice.</p>
+</aside></div>
+<script src="moon_cavern_viz.js"></script>
+</body></html>
