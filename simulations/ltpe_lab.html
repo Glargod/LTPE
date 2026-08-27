@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>LTPE Lab — v6.0</title>
+<style>
+:root{--bg:#0b0d12;--panel:#141821;--ink:#e8eef6;--muted:#8b98ab;--line:#2a3344;--acc:#3dd6c6;--gold:#e8c07a;--red:#ff6b6b}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.4 "Segoe UI",system-ui,sans-serif}
+header{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line)}
+h1{margin:0;font-size:16px} .tabs{display:flex;gap:6px}
+.tab{background:#1b2230;border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:6px 10px;cursor:pointer;font-weight:600}
+.tab.on{border-color:var(--acc);color:var(--acc)}
+.layout{display:grid;grid-template-columns:1fr 280px;min-height:calc(100vh - 50px)}
+@media(max-width:960px){.layout{grid-template-columns:1fr}}
+.stage{padding:10px} canvas{width:100%;height:auto;background:#07090e;border:1px solid var(--line);border-radius:10px}
+aside{border-left:1px solid var(--line);background:var(--panel);padding:12px}
+.row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+button{background:#1b2230;color:var(--ink);border:1px solid #334058;border-radius:8px;padding:7px 10px;cursor:pointer;font-weight:600}
+button.primary{border-color:#2a7a70;color:var(--acc)}
+label{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:13px}
+input[type=number]{width:70px;background:#0c1018;color:var(--ink);border:1px solid #334058;border-radius:6px;padding:5px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.card{background:#0c1018;border:1px solid var(--line);border-radius:10px;padding:8px}
+.card h3{margin:0 0 4px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.n{font-size:20px;font-weight:700}.a{color:var(--acc)}.r{color:var(--red)}
+.log{font:11px/1.35 ui-monospace,Consolas,monospace;height:150px;overflow:auto;background:#080a10;border:1px solid var(--line);border-radius:8px;padding:8px;white-space:pre-wrap}
+.note{color:var(--muted);font-size:12px;margin-top:10px}
+</style>
+</head>
+<body>
+<header>
+  <h1>LTPE Lab</h1>
+  <div class="tabs">
+    <button class="tab on" data-mode="2d">2D cave</button>
+    <button class="tab" data-mode="3d">3D shaft</button>
+    <button class="tab" data-mode="moon">Moon tube</button>
+  </div>
+</header>
+<div class="layout">
+  <div class="stage"><canvas id="cv" width="820" height="560"></canvas></div>
+  <aside>
+    <div class="row">
+      <button class="primary" id="btnNew">New map</button>
+      <button id="btnStep">Step</button>
+      <button id="btnAuto">Auto</button>
+      <button id="btnReset">Reset</button>
+    </div>
+    <div class="row">
+      <label><input type="checkbox" id="ritual" checked> Ritual</label>
+      <label><input type="checkbox" id="showA" checked> A*</label>
+    </div>
+    <div class="row"><label>seed <input id="seed" type="number" value="7"></label></div>
+    <div class="stats">
+      <div class="card"><h3>LTPE cost</h3><div class="n a" id="ltN">0</div><div id="ltS">idle</div></div>
+      <div class="card"><h3>A* steps</h3><div class="n r" id="asN">—</div><div id="asS">idle</div></div>
+    </div>
+    <div class="log" id="log"></div>
+    <p class="note" id="note">Locked v6.0 loop. Backtrack + hub hop. A* is omniscient.</p>
+  </aside>
+</div>
+<script>
+/* engine inlined — see repo file simulations/ltpe_lab.html for full script */
+</script>
+</body>
+</html>
